@@ -20,7 +20,7 @@ resource "random_integer" "unique" {
 
 resource "azurerm_resource_group" "arg" {
   name     = "${var.resource_group_name}${random_integer.unique.result}"
-  location = "${var.resource_group_location}"
+  location = var.resource_group_location
 }
 
 resource "azurerm_service_plan" "asp" {
@@ -57,8 +57,8 @@ resource "azurerm_mssql_server" "amss" {
   resource_group_name          = azurerm_resource_group.arg.name
   location                     = azurerm_resource_group.arg.location
   version                      = "12.0"
-  administrator_login          = "${var.sql_admin_login}"
-  administrator_login_password = "${var.sql_admin_password}"
+  administrator_login          = var.sql_admin_login
+  administrator_login_password = var.sql_admin_password
 }
 
 resource "azurerm_mssql_database" "database" {
@@ -81,7 +81,7 @@ resource "azurerm_mssql_firewall_rule" "amsfr" {
 
 resource "azurerm_app_service_source_control" "aapsc" {
   app_id                 = azurerm_linux_web_app.alwa.id
-  repo_url               = "${var.repo_url}"
+  repo_url               = var.repo_url
   branch                 = "main"
   use_manual_integration = true
 }
