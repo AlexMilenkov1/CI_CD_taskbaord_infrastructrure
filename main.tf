@@ -47,7 +47,7 @@ resource "azurerm_linux_web_app" "alwa" {
   connection_string {
     name  = "DefaultConnection"
     type  = "SQLAzure"
-    value = "Data Source=tcp:${azurerm_mssql_server.amss.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.database.name};User ID=${azurerm_mssql_server.amss.administrator_login};Password=${azurerm_mssql_server.amss.administrator_login};Trusted_Connection=False; MultipleActiveResultSets=True;"
+    value = "Data Source=tcp:${azurerm_mssql_server.amss.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.database.name};User ID=${var.sql_admin_login};Password=${var.sql_admin_password};Trusted_Connection=False; MultipleActiveResultSets=True;"
   }
 }
 
